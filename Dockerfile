@@ -2,14 +2,13 @@ FROM golang:latest
 
 WORKDIR /app
 
-COPY main.go /app
-
-RUN go mod init go-server
-
-RUN go mod tidy
-
+ENV GOPRIVATE "github.com"
+COPY go.mod .
+COPY go.sum .
 RUN go mod download
 
-RUN go build
+COPY main.go .
+COPY ./static/ ./static/
+RUN go build -o TodoApp
 
-RUN go run main.go
+CMD [ "./TodoApp" ]

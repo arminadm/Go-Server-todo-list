@@ -7,6 +7,8 @@ services:
     build: .
     ports:
       - '9000:9000'
+    environment:
+      - hostName=mongodb://mongodb:27017
     depends_on:
       - mongodb
 
